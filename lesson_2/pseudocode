@@ -1,0 +1,41 @@
+1.
+define method, take two integers as parameters, perform addition,
+returns result
+
+START
+
+SET method, with two ints as parameters
+READ first parameter
+READ second parameter
+return first + second parameter
+
+END
+
+2.
+define method, takes array of strings as parameter, strings concatenated
+
+START
+
+SET method, takes array of strings as parameter
+  WHILE array has more strings
+    READ each string
+    concatenate all the strings together
+    return the result
+
+END
+
+3.
+define method, take array of ints as parameter,
+return every second element as a new array
+
+START
+
+SET method, takes array of ints as parameter
+  WHILE there are more elements
+    READ element
+      IF element index is dividable by 2
+        put element in a new array
+
+  return new array
+
+END

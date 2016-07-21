@@ -1,0 +1,65 @@
+# reorganising calculator_messages.yml
+
+en:
+  # greetings
+  welcome: 'Welcome to the calculator! Enter your name:'
+  valid_name: 'Enter a valid name'
+  greeting_name: "Hi, "
+
+  # num inputs
+  first_num: 'Input the first number.'
+  invalid_num: 'You didnt choose a number!'
+  second_num: 'Input the second number.'
+
+  # operations
+  operation_select: "Input the operation, you wish to perform:
+    \n1) add
+    \n2) subtract
+    \n3) multiply
+    \n4) divide"
+  invalid_operation: 'Choose whitin the specified range please.'
+  processing: " numbers..."
+  zero_division_e: 'Division by zero error!'
+  result: "Result is: "
+
+  # rerun program
+  another_go: 'Perform another operation?(Y for yes /other for no)'
+  goodbye_msg: "Thanks for using the calculator. Good bye "
+
+  # operations
+  add: 'Adding'
+  subtract: 'Subtracting'
+  multiply: 'Multiplying'
+  divide: 'Dividing'
+
+slo:
+  # greetings
+  welcome: 'Pozdravljen, vnesi svoje ime: '
+  valid_name: 'Vnesi pravo ime.'
+  greeting_name: "Zdravo, "
+
+  # num inputs
+  first_num: 'Vnesi prvo stevilko.'
+  invalid_num: 'Nisi vnesel stevilke!'
+  second_num: 'Vnesi drugo stevilko.'
+
+  # operations
+  operation_select: "Vnesi operacijo, ki jo zelis izvrsiti:
+  \n1) sestevanje
+  \n2) odstevanje
+  \n3) mnozenje
+  \n4) deljenje"
+  invalid_operation: 'Izberi stevilko od 1 do 4.'
+  processing: " stevilke..."
+  zero_division_e: 'Napaka, deljenje z nic!'
+  result: "Rezultat je: "
+
+  # rerun program
+  another_go: 'Zelis opraviti se kaksen izracun?(Y za ja /ostalo za ne)'
+  goodbye_msg: "Hvala ker si uporabil kalkulator. Nasvidenje "
+
+  # operations
+  add: 'Sestevam'
+  subtract: 'Odstevam'
+  multiply: 'Mnozim'
+  divide: 'Delim'
