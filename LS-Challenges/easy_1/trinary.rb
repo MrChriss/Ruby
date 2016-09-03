@@ -1,13 +1,13 @@
-class Octal
+class Trinary
   attr_reader :number
 
   def initialize(number)
     @number = number
   end
 
-  def valid_octal?
+  def valid_trinary?
     number.split('').each do |num|
-      return false unless %w(0 1 2 3 4 5 6 7).include? num
+      return false unless %w(0 1 2).include? num
     end
   end
 
@@ -16,10 +16,10 @@ class Octal
     unit_array = number.reverse.split('')
 
     while counter < unit_array.size
-      unit_array[counter] = unit_array[counter].to_i * (8**counter)
+      unit_array[counter] = unit_array[counter].to_i * (3**counter)
       counter += 1
     end
 
-    valid_octal? ? unit_array.inject(:+) : 0
+    valid_trinary? ? unit_array.inject(:+) : 0
   end
 end
