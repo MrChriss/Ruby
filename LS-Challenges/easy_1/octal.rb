@@ -6,7 +6,7 @@ class Octal
   end
 
   def valid_octal?
-    new_array = number.reverse.split('')
+    new_array = number.split('')
 
     if number.to_i == 0
       false
