@@ -203,21 +203,3 @@ loop do
 end
 
 prompt 'Thanks for playing Tic Tac Toe, Good bye!'
-
-# if ORDER == "1"
-#   player_places_piece!(board)
-#   display_interface(board, score)
-#   break if someone_won?(board) || board_full?(board)
-
-#   computer_places_piece!(board)
-#   display_interface(board, score)
-#   break if someone_won?(board) || board_full?(board)
-# elsif ORDER == "2"
-#   computer_places_piece!(board)
-#   display_interface(board, score)
-#   break if someone_won?(board) || board_full?(board)
-
-#   player_places_piece!(board)
-#   display_interface(board, score)
-#   break if someone_won?(board) || board_full?(board)
-# end
