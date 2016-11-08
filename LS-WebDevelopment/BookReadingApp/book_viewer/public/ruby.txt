@@ -1,0 +1,434 @@
+				PSEUDO CODE
+=======================================================================
+keyword			meaning
+
+START			start of the program
+SET			sets a variable we can use for later
+GET			retrieve input from user
+PRINT			displays output to user
+READ			retrieve value from variable
+IF / ELSE IF / ELSE	show conditional branches in logic
+WHILE			show looping logic
+END			end of the program
+
+
+				   PRY
+=======================================================================
+require 'pry'       # <= add this to use pry
+binding.pry     # <= execution will stop here
+
+
+				CODING STYLE
+=======================================================================
+var, method names: discriptive - WhatItDoes not how it does it!
+simple, authonomous methods cca 10 lines
+what method returns, what it does? eg. "print_hello" NOT "hello"
+
+
+			           SCOPE(local vars)
+=======================================================================
+blocks {}, do/end, can take parameters --> |parameter|
+if local var same name as parameter --> "var shadowing" block will
+disregard local var
+scopes: blocks
+if 2: inner, outer, same level scope --> peer scope
+if more: 1st level, 2nd level, etc...
+methods totaly self contained
+constants have lexical scope, accessible throughout
+
+for loop does not create a block
+
+
+				MUTATING THE CALLER
+=======================================================================
+eg. "destructive operations"
+usually end with !
+sometimes not eg. <<, pop, push, itd.
+some dont [value] + [value1, value2] returns NEW array, doesent mutate 
+the original
+
+pass by reference, pass by value
+revisit lesson_3, exercise_medium_3 and exercise_hard_1
+
+
+MORE TO COME
+
+fwy: * can also be "splat" operator
+
+
+				DOCUMENTATION
+=======================================================================
+::  ==> class methods (called on class)
+#   ==> instance methods (called on objects)
+means they are members of specific class or modules.
+
+Mix-ins ability for a class to inherit from multiple parent classes, with restricting behaviour
+
+Enumerable ==> module
+Enumerator ==> class
+
+
+				   STUFF
+=======================================================================
+variables are pointers to objects of different kinds (strings, arrays, numbers...), they point to phisical address in memory.
+
+numbers, ranges, booleans are immutable
+strings, arrays, hashes ... are mutable
+
+primitives (primitive data types) pointers(references), chars, floats, ints, bools, fixed point numbers
+
+DIFFERENCE between arguments and parameters:
+A parameter is a variable in a method definition. When a method is called, the arguments are the data you pass into the method's parameters. Parameter is variable in the declaration of function. Argument is the actual value of this variable that gets passed to function
+
+method call and method invocation are synonimous
+
+synthactical sugar:
+optional ()
+ruby will call variable first, than method
+
+str = "abc"
+def str(a)
+  "abc"
+end
+puts str
+
+mutable objects are always 'pass by reference' --> method is suplied the reference, through which it (can) change it's value
+
+immutable objects are always pass by value. can not change the value, can only make a new one.
+
+core api(auto loaded)
+-> classes
+-> modules: kernel...
+
+standard api(included in ruby, not auto loaded) have to use 'require' to load it
+
+gem (external library), install first...
+pry, rubocop...
+
+initialization
+reasignment
+
+variable scope
+mutability
+
+return values vs side effects
+
+hash, value retrieval hsh[key] = value, what if nil? hsh.fetch('key')
+
+select method 
+ select returns a new array based on the blocks *return value*. if the return value evaluates to true, then the element is selected
+cares about return values truethyness
+
+map method
+ map returns a new array based on the block's *return value*. Each element is transformed based on the    return value
+
+nil and false have a boolean value of false
+
+nil --> nothing, completely empty, not any specific type, has boolean value of false, but does not equal false
+
+differences of nil and false
+The differences of the methods nil and false are:
+- nil cannot be a value, where as a false can be a value
+- A method returns true or false in case of a predicate, otherwise nil is returned.
+- false is a boolean data type, where as nil is not.
+- nil is an object for NilClass, where as false is an object of for FalseClass
+
+
+expression, NOT statement
+
+
+
+				OOP
+=======================================================================
+module names sufix --> 'able' (Movable, Seeable, Calculable...)
+
+module mixin(to class)  --> include Module
+create class  --> class MyClass
+create module --> module MyModule
+.ancestors to check "lookup chain" of a class /module
+
+class object or instance
+
+states    --> track atributes for individual objects (instance variables)
+behaviors --> what objects are capable of doing	     (instance methods) are available to objects of same class
+
+instance method ``initialize`` gets called every time new object is created
+--> ``new`` class method triggers initialize instance method(constructor)
+
+@some_var --> instance variable
+
+``getter`` method --> get data --> deffinition: some_getter_method; return data; end
+``setter`` method --> change data --> definition: some_setter_method=(parameter), ...
+usage: object_name.some_setter_method = parameter  //synthactical sugar!
+
+
+attr_* --> takes symbol as parameter --> :parameter
+
+attr_reader   (getter) 
+attr_whiter   (setter)
+attr_accessor (both)
+
+object attributes are called instance variables or member fields
+
+instance methods, perform operations on objects (instances)
+self inside an instance method references the object
+
+class methods, perform operations on class
+self inside self.some_method_class, references the class
+
+
+-------------------------------------------    SELF   ----------------------------------------------
+
+1. self, inside of an instance method, references the instance (object) that called the method - the calling object. Therefore, self.weight= is the same as sparky.weight=, in our example.
+
+2. self, outside of an instance method, references the class and can be used to define class methods. Therefore, def self.name=(n) is the same as def GoodDog.name=(n), in our example.
+----------------------------------------------------------------------------------------------------
+
+
+
+to_s called automatically in string interpolation #{}, and puts.
+can be overwritten if defined to_s method inside a class.
+
+class variables: @@some_class_variable
+class methods: def self.some_method(param); end
+
+if using attr_acessor,
+need to use self. inside a method definition, if changing data, to disambiguate between
+getter and setter. (use self. for setter)
+
+def some_instance_method(param)
+  some_var = param
+end
+--> is actually creating new local variable
+
+def some_instance_method(param)
+  @some_var OR self.some_var = param
+end
+
+[private methods, accessible only to other methods inside the class (whitout self. - private method cannot be called with an explicit recevier - the object the method is being called from) 
+protected methods, accessible inside the class like public, outside like private (not accessible)(can be called with .self, can be called on whitin the class, whitin the context of an object of the same type)]
+
+When a method is private, only the class - not instances of the class - can access it. However, when a method is protected, all instances of the class have access to it. This means we can easily share sensitive data between instances of the same class type.
+
+private methods cannot be called on a (particular) instance, so it cannot be used with ``self``
+
+
+public methods, accessible everywhere
+
+
+use :: for namespacing
+tell ruby, where to get the value from.
+
+watch out for destructive calls on instance variables, use -->
+use .clone to create a copy of the boject and its state
+instance variables of the obj are copied, but not the objects they refernce
+
+
+=======================================================================
+Truthynes --> what ruby considers to be true
+is not equal to true (true object of TrueClass)
+everything in ruby is considered truthy exept false and nil.
+
+num = 5
+
+if num
+  puts "num is truthy"
+else
+  puts "num is falsy"
+end
+
+num is considered to be truthy.
+num == true # => false
+
+
+logical operator short circuit-ing
+using || operator, as soon as there is a true value ruby will return true
+using && operator, as soon as there is a false value ruby will return false
+
+
+== is comparing variables' values (whitin actual objects)
+.equal? method, comparing if two variables are pointing to the same objects
+
+== is actually a method, BasicObject instance method, each sub class has its own #== implementation
+
+operand1.==(operand2), 
+operand1 == operand2    --> syntactical sugar!
+
+when we define #== mehod, we also get != method ``for free``
+
+
+=== method: used for equality comparison in case statements
+
+eql? method: determines if two objects contain the same value and if they're of the same class.
+
+
+IZPISKI IZ strani: 
+
+the == operator compares two objects' values, and is frequently used.
+the == operator is actually a method. Most built-in Ruby classes, like Array, String, Fixnum, etc override the == method to specify how to compare objects of those classes.
+if you need to compare custom objects, you should override the == method.
+understanding how this method works is the most important part of this assignment.
+
+the equal? method goes one level deeper than == and determines whether two variables not only have the same value, but also whether they point to the same object.
+do not override equal?.
+the equal? method is not used very often.
+calling object_id on an object will return the object's unique numerical value. Comparing two objects' object_id has the same effect as comparing them with equal?.
+
+used implicitly in case statements.
+like ==, the === operator is actually a method.
+you rarely need to call this method explicitly, and only need to implement it in your custom classes if you anticipate your objects will be used in case statements, which is probably pretty rare.
+
+used implicitly by Hash.
+very rarely used explicitly.
+
+----------------------------------Inheritance and Variable Scope--------------------------------------
+
+Instance Variables behave the way we'd expect. The only thing to watch out for is to make sure the instance variable is initialized before referencing it.
+
+Class Variables have a very insidious behavior of allowing sub-classes to override super-class class variables. Further, the change will affect all other sub-classes of the super-class. This is extremely unintuitive behavior, forcing some Rubyists to eschew using class variables altogether.
+
+Constants have lexical scope which makes their scope resolution rules very unique compared to other variable types. If Ruby doesn't find the constant using lexical scope, it'll then look at the inheritance heirarchy.
+
+Blocks keep track of their surroundings, because of their primary role... portable chunks of code... (crucial for understanding local variable scope)
+That's why local variables are visile inside the block but not the other way around.
+
+
+
+
+
+
+
+
+
+				BLOCKS
+=======================================================================
+closure -> chunks of code   >>anonymous functions<<
+closure = proc object
+closures / proc objects:
+ - initialising Proc object
+ - using lambdas
+ - using blocks
+
+blocks can be passed to methods as arguments
+every method can take an optional block as implicit parameter
+
+``yield`` executes the block
+yield if (Kernel.)block_given?
+
+block can have a parameter --> |param|
+argument is a block local variable  --> scope is constrained to the block
+
+blocks and number of parameters suplied to the block
+yield(parameter1, parameter2...)
+blocks dont enforce argument count.
+
+The rules around enforcing the number of arguments
+you can call on a closure in Ruby is called its arity
+
+blocks are useful when deferring method implementation to method invocation
+
+& before a block is saving the block to a variable
+
+
+Todo list;
+better to write new public method for class, than to operate on a getter method
+worse --> list.todos.each Array#each
+better --> list.each --> new public method (TodoList#each)
+
+or
+
+worse list.todos << some_element
+better list << some_element
+
+alias_method :old_method_name, :new_method_name
+old_method_name is defuned outside the class, new_method_name is defined in the class and is now the same as old_method_name
+
+raise NameOfError, '<message>'
+to raise an error if some condition is met.
+
+block_given? checks if block is suplied to the yield
+if it isn't and should be: raise SomeNameError "<message>"
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+my_proc = Proc.new {|param| param_logic}
+my_lambda = lambda {|param| lambda_logic}
+
+when lambda returns it passes controll back to the calling method
+when proc returns, it does so immediatly, whitout going back to the calling method
+
+my_proc.call --> executes the body of the proc
+my_lambda.call --> executes the body of the lambda
+
+& tells ruby to turn lambda/proc to a block
+block is not an object, proc and lambda are both objects of class Proc
+
+lambda checks for the number of arguments
+procs do not
+
+and more...
+
+
+
+				Testing
+=======================================================================
+note to self: checkout RSpec
+
+assertion style testing:
+SEAT:
+Set up the necessary objects.
+1. Execute the code against the object we're testing.
+2. Assert the results of the execution.
+3. Tear down and clean up any lingering artifacts. (cleanning up files, logging, close database connections...)
+
+
+require 'minitest/autorun'
+require_relative 'file_name' (without .rb)
+
+---- optional ---- (adds colors itd, has to be preinstalled gem install reporters?)
+require 'minitest/reporters'
+Minitest::Reporters.use!
+-----------------------
+
+class MyClassTest < Minitest::Test
+
+def setup
+@my_ivar = MyClass.new
+end
+
+every method we are testing begins with test_method_name
+
+def teardown
+nismo se ucil na LS
+end
+
+
+===>>>!!! assert_equal(exp, act)	        	Fails unless exp == act.
+===>>>!!! assert_same(exp, act)                         Checks for object_id == object_id
+need to implement #== instance method on custom classes, so Minitest knows what to compare.
+e.g.
+def ==(other)
+  other.is_a?(Car) && name == other.name
+end
+
+assert same remains unaffected.
+
+
+assert(test)	                	Fails unless test is truthy.
+assert_nil(obj)	                	Fails unless obj is nil.
+assert_raises(*exp) { ... }		Fails unless block raises one of *exp.
+assert_instance_of(cls, obj)		Fails unless obj is an instance of cls.
+assert_includes(collection, obj)	Fails unless collection includes obj.
+skip					Skips test
+
+expectation style testing --> chechout RSpec
+
+
+
+
+
+
+
+
+
+
+
